@@ -9,22 +9,20 @@
     <link rel="icon" href="Favicon.ico" type="image/x-icon">
 
     <style>
-        /* Page Background with gradient and image */
+        /* Page Background using the uploaded image */
         body {
             background: url('Background.png') no-repeat center center fixed;
             background-size: cover;
-            background-blur: 10px;
-            background-color: rgba(255, 0, 255, 0.5); /* Magenta / Purple background overlay */
-            color: white;
-            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
             overflow: hidden;
+            color: white;
         }
 
         /* Heading Style */
@@ -37,33 +35,28 @@
 
         /* Button Style */
         .btn {
-            padding: 30px 60px;
-            font-size: 2rem;
-            background-color: #ff007f; /* Light Magenta color */
-            color: white;
+            width: 200px; /* Adjust size */
+            height: 200px; /* Adjust size */
+            background-color: rgba(0, 255, 0, 0.8); /* Green button */
             border: none;
-            border-radius: 12px;
+            border-radius: 50%; /* Makes it circular */
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, background-color 0.3s;
         }
 
         /* Button Hover and Active effects */
         .btn:hover {
-            background-color: #ff5ac7;
+            background-color: rgba(0, 255, 0, 1); /* Brighter green */
             transform: scale(1.1); /* Slight zoom effect */
         }
 
         .btn:active {
-            background-color: #e6006f;
+            background-color: rgba(0, 200, 0, 1); /* Darker green */
+            transform: scale(0.95); /* Shrink slightly */
         }
 
-        /* Button on Focus */
-        .btn:focus {
-            outline: none;
-        }
-
-        /* Styling for Paragraph */
+        /* Paragraph Style */
         p {
             font-size: 1.5rem;
             margin-top: 10px;
