@@ -6,14 +6,17 @@
     <title>Eaglercraft Launcher | Home</title>
 
     <!-- Favicon link -->
-    <link rel="icon" href="Favicon.ico" type="image/x-icon"> <!-- Replace 'favicon.ico' with your actual favicon file -->
+    <link rel="icon" href="Favicon.ico" type="image/x-icon">
 
     <style>
-        /* Page Background */
+        /* Page Background with gradient and image */
         body {
-            background-color: black;
+            background: url('Background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-blur: 10px;
+            background-color: rgba(255, 0, 255, 0.5); /* Magenta / Purple background overlay */
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -21,30 +24,38 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            overflow: hidden;
         }
 
         /* Heading Style */
         h1 {
-            font-size: 4rem; /* Large font size */
+            font-size: 4rem;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
         }
 
         /* Button Style */
         .btn {
-            padding: 30px 60px; /* Larger padding for a big button */
-            font-size: 2rem; /* Larger text */
-            background-color: #4CAF50; /* Green background */
-            color: #a8e6a2; /* Lighter green text */
+            padding: 30px 60px;
+            font-size: 2rem;
+            background-color: #ff007f; /* Light Magenta color */
+            color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for button */
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
+        /* Button Hover and Active effects */
         .btn:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #ff5ac7;
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+
+        .btn:active {
+            background-color: #e6006f;
         }
 
         /* Button on Focus */
@@ -57,20 +68,32 @@
             font-size: 1.5rem;
             margin-top: 10px;
             text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
-
     </style>
 </head>
 <body>
 
-    <h1>Welcome to the Eaglerforge Launcher</h1>
+    <h1>Welcome to the Eaglercraft Launcher</h1>
     <p>Click the button below to start the game:</p>
     <button class="btn" onclick="openClient()">Run</button>
 
     <script>
         function openClient() {
-            // Open the eaglerforge.html client file as a popup window
-            window.open('eaglerforge.html', '_blank', 'width=800,height=600,scrollbars=no,resizable=no,toolbar=no,location=no,directories=no,status=no');
+            // Get the screen width and height
+            var screenWidth = window.innerWidth;
+            var screenHeight = window.innerHeight;
+            
+            // Set the size of the popup window
+            var windowWidth = 800;
+            var windowHeight = 600;
+            
+            // Calculate the position of the popup window to center it
+            var left = (screenWidth - windowWidth) / 2;
+            var top = (screenHeight - windowHeight) / 2;
+
+            // Open the eaglerforge.html client file as a centered popup window
+            window.open('eaglerforge.html', '_blank', `width=${windowWidth},height=${windowHeight},left=${left},top=${top},scrollbars=no,resizable=no,toolbar=no,location=no,directories=no,status=no`);
         }
     </script>
 
