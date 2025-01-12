@@ -4,89 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eaglercraft Launcher | Home</title>
-
-    <!-- Favicon link -->
     <link rel="icon" href="Favicon.ico" type="image/x-icon">
-
     <style>
-        /* Page Background using the uploaded image */
         body {
-            background: url('Background.png') no-repeat center center fixed;
-            background-size: cover;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            overflow: hidden;
+            background: url('Background.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
             color: white;
+            overflow-y: auto;
+            padding: 20px;
+            display: none;
+            box-shadow: 3px 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar h2 {
             text-align: center;
+            color: #f4f4f4;
         }
-
-        /* Heading Style */
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        .folder-list {
+            list-style: none;
+            padding: 0;
         }
-
-        /* Button Style */
-        .btn {
-            width: 250px; /* Width of the rectangle */
-            height: 80px; /* Height of the rectangle */
-            background-color: rgba(0, 255, 0, 0.8); /* Green button */
+        .folder-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #444;
+            border-radius: 5px;
+        }
+        .folder-item h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .folder-item button {
+            margin: 5px 5px 0 0;
+            padding: 5px 10px;
             border: none;
-            border-radius: 8px; /* Slightly rounded corners */
+            border-radius: 3px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, background-color 0.3s;
-            font-size: 1.5rem;
         }
-
-        /* Button Hover and Active effects */
-        .btn:hover {
-            background-color: rgba(0, 255, 0, 1); /* Brighter green */
-            transform: scale(1.05); /* Slight zoom effect */
+        .download-btn {
+            background-color: #4CAF50;
+            color: white;
         }
-
-        .btn:active {
-            background-color: rgba(0, 200, 0, 1); /* Darker green */
-            transform: scale(0.95); /* Shrink slightly */
+        .run-btn {
+            background-color: #008CBA;
+            color: white;
         }
-
-        /* Paragraph Style */
-        p {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        .run-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+    <button class="run-button" onclick="toggleSidebar()">Run</button>
 
-    <button class="btn" onclick="openClient()">Run</button>
+    <div class="sidebar" id="sidebar">
+        <h2>Available Clients</h2>
+        <ul class="folder-list" id="folderList"></ul>
+    </div>
 
     <script>
-        function openClient() {
-            // Get the screen width and height
-            var screenWidth = window.innerWidth;
-            var screenHeight = window.innerHeight;
-            
-            // Set the size of the popup window
-            var windowWidth = 800;
-            var windowHeight = 600;
-            
-            // Calculate the position of the popup window to center it
-            var left = (screenWidth - windowWidth) / 2;
-            var top = (screenHeight - windowHeight) / 2;
+        const folderList = document.getElementById('folderList');
 
-            // Open the eaglerforge.html client file as a centered popup window
-            window.open('eaglerforge.html', '_blank', `width=${windowWidth},height=${windowHeight},left=${left},top=${top},scrollbars=no,resizable=no,toolbar=no,location=no,directories=no,status=no`);
+        // List of folders (update dynamically if needed)
+        const folders = [
+            { id: 1, name: "Folder 1", clientFile: "eaglercraft.html" },
+            { id: 2, name: "Folder 2", clientFile: null },
+            { id: 3, name: "Folder 3", clientFile: "client.html" },
+            { id: 4, name: "Folder 4", clientFile: null },
+            // Add more folders here
+        ];
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
         }
-    </script>
 
+        function downloadFile(folderId) {
+            const link = document.createElement('a');
+            link.href = `./${folderId}/`;
+            link.download = `Folder ${folderId}`;
+            link.click();
+        }
+
+        function runFile(folderId, fileName) {
+            window.open(`./${folderId}/${fileName}`, '_blank');
+        }
+
+        folders.forEach(folder => {
+            const listItem = document.createElement('li');
+            listItem.className = 'folder-item';
+            listItem.innerHTML = `
+                <h3>${folder.name}</h3>
+                <button class="download-btn" onclick="downloadFile(${folder.id})">Download</button>
+                ${
+                    folder.clientFile
+                        ? `<button class="run-btn" onclick="runFile(${folder.id}, '${folder.clientFile}')">Run</button>`
+                        : `<p style="color: #f4f4f4; font-size: 12px;">No HTML client found</p>`
+                }
+            `;
+            folderList.appendChild(listItem);
+        });
+    </script>
 </body>
 </html>
