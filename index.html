@@ -23,32 +23,33 @@
             flex-direction: column;
             overflow: hidden;
             color: white;
+            text-align: center;
         }
 
         /* Heading Style */
         h1 {
             font-size: 4rem;
-            text-align: center;
             margin-bottom: 30px;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
         }
 
         /* Button Style */
         .btn {
-            width: 200px; /* Adjust size */
-            height: 200px; /* Adjust size */
+            width: 250px; /* Width of the rectangle */
+            height: 80px; /* Height of the rectangle */
             background-color: rgba(0, 255, 0, 0.8); /* Green button */
             border: none;
-            border-radius: 50%; /* Makes it circular */
+            border-radius: 8px; /* Slightly rounded corners */
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, background-color 0.3s;
+            font-size: 1.5rem;
         }
 
         /* Button Hover and Active effects */
         .btn:hover {
             background-color: rgba(0, 255, 0, 1); /* Brighter green */
-            transform: scale(1.1); /* Slight zoom effect */
+            transform: scale(1.05); /* Slight zoom effect */
         }
 
         .btn:active {
@@ -60,7 +61,6 @@
         p {
             font-size: 1.5rem;
             margin-top: 10px;
-            text-align: center;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
     </style>
