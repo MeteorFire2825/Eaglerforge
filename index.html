@@ -1,127 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eaglercraft Launcher | Home</title>
-    <link rel="icon" href="Favicon.ico" type="image/x-icon">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('Background.png') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            color: white;
-            overflow-y: auto;
-            padding: 20px;
-            display: none;
-            box-shadow: 3px 0 5px rgba(0, 0, 0, 0.2);
-        }
-        .sidebar h2 {
-            text-align: center;
-            color: #f4f4f4;
-        }
-        .folder-list {
-            list-style: none;
-            padding: 0;
-        }
-        .folder-item {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #444;
-            border-radius: 5px;
-        }
-        .folder-item h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-        .folder-item button {
-            margin: 5px 5px 0 0;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .download-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .run-btn {
-            background-color: #008CBA;
-            color: white;
-        }
-        .run-button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EaglerForge Injector</title>
+  
+  <!-- Link to the same favicon as client.html -->
+  <link rel="icon" href="icon-192x192.png" type="image/png">
+
+  <!-- Link to the manifest file for PWA functionality -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Service Worker registration for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js') // Ensure the correct path
+          .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+
+  <!-- Dark Mode Styling -->
+  <style>
+    /* Basic reset for the page */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background-color: #121212;
+    }
+
+    h1 {
+      color: #ffffff;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    p {
+      color: #bbb;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* Button Styling */
+    .run-button {
+      display: block;
+      margin: 20px auto;
+      padding: 15px 30px;
+      background-color: #007bff;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .run-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* The iframe where client.html will be loaded */
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      display: none; /* Initially hidden */
+    }
+  </style>
 </head>
 <body>
-    <button class="run-button" onclick="toggleSidebar()">Run</button>
 
-    <div class="sidebar" id="sidebar">
-        <h2>Available Clients</h2>
-        <ul class="folder-list" id="folderList"></ul>
-    </div>
+  <!-- Title of the page -->
+  <h1>EaglerForge Injector</h1>
+  <p>Click the "RUN EaglerForge" button below to load the EaglerForge Injector.</p>
 
-    <script>
-        const folderList = document.getElementById('folderList');
+  <!-- RUN EaglerForge Button -->
+  <button class="run-button" id="runButton">RUN EaglerForge</button>
 
-        // List of folders (update dynamically if needed)
-        const folders = [
-            { id: 1, name: "Folder 1", clientFile: "eaglercraft.html" },
-            { id: 2, name: "Folder 2", clientFile: null },
-            { id: 3, name: "Folder 3", clientFile: "client.html" },
-            { id: 4, name: "Folder 4", clientFile: null },
-            // Add more folders here
-        ];
+  <!-- The iframe for loading client.html -->
+  <iframe id="clientIframe" src="client.html" title="EaglerForge Injector"></iframe>
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
-        }
+  <!-- Script for handling iframe -->
+  <script>
+    // Grab elements
+    const runButton = document.getElementById('runButton');
+    const iframe = document.getElementById('clientIframe');
 
-        function downloadFile(folderId) {
-            const link = document.createElement('a');
-            link.href = `./${folderId}/`;
-            link.download = `Folder ${folderId}`;
-            link.click();
-        }
+    // Show the iframe when the run button is clicked
+    runButton.addEventListener('click', () => {
+      iframe.style.display = 'block';  // Display the iframe
+      runButton.style.display = 'none'; // Hide the run button
+    });
 
-        function runFile(folderId, fileName) {
-            window.open(`./${folderId}/${fileName}`, '_blank');
-        }
-
-        folders.forEach(folder => {
-            const listItem = document.createElement('li');
-            listItem.className = 'folder-item';
-            listItem.innerHTML = `
-                <h3>${folder.name}</h3>
-                <button class="download-btn" onclick="downloadFile(${folder.id})">Download</button>
-                ${
-                    folder.clientFile
-                        ? `<button class="run-btn" onclick="runFile(${folder.id}, '${folder.clientFile}')">Run</button>`
-                        : `<p style="color: #f4f4f4; font-size: 12px;">No HTML client found</p>`
-                }
-            `;
-            folderList.appendChild(listItem);
-        });
-    </script>
+    // Prevent the install prompt from showing up
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); // Prevent the browser's default install prompt
+    });
+  </script>
 </body>
 </html>
