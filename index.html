@@ -66,14 +66,6 @@
     .run-button:hover {
       background-color: #0056b3;
     }
-
-    /* The iframe where client.html will be loaded */
-    iframe {
-      width: 100%;
-      height: 80vh;
-      border: none;
-      display: none; /* Initially hidden */
-    }
   </style>
 </head>
 <body>
@@ -85,20 +77,15 @@
   <!-- RUN EaglerForge Button -->
   <button class="run-button" id="runButton">RUN EaglerForge</button>
 
-  <!-- The iframe for loading client.html -->
-  <iframe id="clientIframe" src="" title="EaglerForge Injector"></iframe>
-
-  <!-- Script for handling iframe -->
+  <!-- Script to redirect to client.html when the button is clicked -->
   <script>
-    // Grab elements
+    // Grab the button element
     const runButton = document.getElementById('runButton');
-    const iframe = document.getElementById('clientIframe');
 
-    // Show the iframe with client.html when the run button is clicked
+    // Add an event listener to the button
     runButton.addEventListener('click', () => {
-      iframe.src = "client.html";  // Set the iframe's src to client.html
-      iframe.style.display = 'block';  // Display the iframe
-      runButton.style.display = 'none'; // Hide the run button
+      // Redirect the user to client.html when the button is clicked
+      window.location.href = 'client.html';  // This will change the page to client.html
     });
   </script>
 </body>
