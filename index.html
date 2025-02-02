@@ -86,7 +86,7 @@
   <button class="run-button" id="runButton">RUN EaglerForge</button>
 
   <!-- The iframe for loading client.html -->
-  <iframe id="clientIframe" src="client.html" title="EaglerForge Injector"></iframe>
+  <iframe id="clientIframe" src="" title="EaglerForge Injector"></iframe>
 
   <!-- Script for handling iframe -->
   <script>
@@ -94,15 +94,11 @@
     const runButton = document.getElementById('runButton');
     const iframe = document.getElementById('clientIframe');
 
-    // Show the iframe when the run button is clicked
+    // Show the iframe with client.html when the run button is clicked
     runButton.addEventListener('click', () => {
+      iframe.src = "client.html";  // Set the iframe's src to client.html
       iframe.style.display = 'block';  // Display the iframe
       runButton.style.display = 'none'; // Hide the run button
-    });
-
-    // Prevent the install prompt from showing up
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); // Prevent the browser's default install prompt
     });
   </script>
 </body>
